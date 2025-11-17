@@ -103,7 +103,7 @@ public class EvenementDAO {
 
                 // Charger catégories
                 CategoryPlaceDAO categoryPlaceDAO = new CategoryPlaceDAO();
-                evt.setCategories(categoryPlaceDAO.getCategoryPlacesParEvenement(evt));
+                evt.setCategories(categoryPlaceDAO.getCategoryPlacesParEvenement(evt.getId()));
 
                 return evt;
             }
@@ -167,7 +167,7 @@ public class EvenementDAO {
                     evenement.setId(idEvenement);
                     evenement.setOrganisateurId(organisateurId);
                     CategoryPlaceDAO categoryPlaceDAO = new CategoryPlaceDAO();
-                    evenement.getCategories().addAll(categoryPlaceDAO.getCategoryPlacesParEvenement(evenement));
+                    evenement.getCategories().addAll(categoryPlaceDAO.getCategoryPlacesParEvenement(evenement.getId()));
                     liste.add(evenement);
                 }
             }

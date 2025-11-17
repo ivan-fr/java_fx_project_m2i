@@ -24,16 +24,6 @@ public class ReservationDAO {
             reservation.setDateReservation(LocalDateTime.now());
         }
 
-        // Vérification : Y a-t-il encore des places disponibles ?
-        // Créer un objet CategoryPlace temporaire avec l'ID pour la vérification
-        CategoryPlace categoryPlace = new CategoryPlace("", 0, 0.0);
-        categoryPlace.setId(reservation.getCategoryPlaceId());
-        CategoryPlaceDAO categoryPlaceDAO = new CategoryPlaceDAO();
-        int placesDisponibles = categoryPlaceDAO.getPlacesDisponibles(categoryPlace);
-        if (placesDisponibles <= 0) {
-            System.out.println("Erreur : Plus de places disponibles pour cette catégorie");
-            return false;
-        }
 
         // Insertion de la réservation
         String sql = "INSERT INTO reservations (client_id,evenement_id,category_place_id,date_reservation) VALUES (?,?,?,?)";

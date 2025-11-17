@@ -4,6 +4,7 @@ import com.project.controller.ReservationController;
 
 import com.project.entity.evenement.CategoryPlace;
 import com.project.entity.evenement.Evenement;
+import com.project.exception.PlacesInsuffisantesException;
 import com.project.util.Session;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -77,9 +78,23 @@ public class ReservationForm {
         }
 
         int selectedCategoryId = categoryMap.get(selectedCategory);
-        boolean result = controller.reserve(Session.getInstance().getUtilisateur().getId(), event.getId(), selectedCategoryId, quantity);
 
-        messageLabel.setText(result ? "Reservation successful!" : "Reservation failed.");
+        try {
+            controller.reserve(Session.getInstance().getUtilisateur().getId(), event.getId(), selectedCategoryId, quantity);
+            messageLabel.setText("Reservation successful!" );
+        } catch (Exception e) {
+            messageLabel.setText(e.getMessage());
+        }
+
+
     }
 
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Succès");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }
