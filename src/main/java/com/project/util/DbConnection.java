@@ -29,9 +29,6 @@ public class DbConnection {
 
     public static void fermerConnexion() {
         try {
-         /*   if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }*/
             if (conn != null && !conn.isClosed()) {
                 conn.close();
             }

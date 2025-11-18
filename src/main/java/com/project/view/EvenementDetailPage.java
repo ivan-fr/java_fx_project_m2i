@@ -1,7 +1,6 @@
 package com.project.view;
 
 import com.project.entity.evenement.Evenement;
-import com.project.util.Session;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

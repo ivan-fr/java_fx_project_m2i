@@ -19,7 +19,7 @@ public class ReservableImpl implements Reservable {
     }
 
     @Override
-    public void reserver(int userId, int  eventId,int categoryId, int quantite)
+    public boolean isReservable(int userId, int eventId, int categoryId, int quantite)
             throws PlacesInsuffisantesException {
 
 
@@ -28,10 +28,20 @@ public class ReservableImpl implements Reservable {
             System.out.println("Erreur : Plus de places disponibles pour cette catégorie");
             throw new PlacesInsuffisantesException("Pas assez de places !");
         }
-        for(int i=0;i<quantite;i++) {
-            Reservation reservation = new Reservation(userId, eventId, categoryId, LocalDateTime.now());
-            reservationDao.ajouterReservation(reservation);
-        }
+        return true;
+
+    }
+    @Override
+    public void reserver(int userId, int  eventId,int categoryId, int quantite)
+            throws PlacesInsuffisantesException {
+
+       boolean isReservable= isReservable(userId,   eventId, categoryId,  quantite);
+       if(isReservable) {
+           for (int i = 0; i < quantite; i++) {
+               Reservation reservation = new Reservation(userId, eventId, categoryId, LocalDateTime.now());
+               reservationDao.ajouterReservation(reservation);
+           }
+       }
 
 
 
